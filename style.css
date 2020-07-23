@@ -30,13 +30,14 @@
   /* star button */
   .book:after {
     font-family: FontAwesome;
-    content: "\f006";
-    font-size: 35px;
+    /* content: "\f014"; */
+    font-size: 25px;
     position: relative;
     left: -.1cm;
     top: -2cm;
     float: right;
   }
+  
   
   .cover {
     border: 2px solid gray;
@@ -50,7 +51,7 @@
   
   .book p {
     margin-top: 12px;
-    font-size: 20px;
+    font-size: medium;
   }
   
   .book .author {
@@ -70,9 +71,7 @@
       margin: 0 auto;
       margin-top: 50px;
     }
-    .cover {
-      
-    }
+    
   }
   
   /*********************************
@@ -152,6 +151,7 @@
     border:1px solid #006699;  
     margin-bottom:15px;  
     cursor:pointer;
+    font-size: medium;
   }
   input[type="submit"] {
     background:none;
@@ -160,3 +160,12 @@
     text-align:left;
     cursor:pointer;
   }
+  .delete{
+   
+    margin-right: 2px;
+  }
+
+  .isRead{
+    float: right;
+  }
+

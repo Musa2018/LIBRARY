@@ -1,201 +1,138 @@
-let books=[];
-let newBooks=[];
-let storedBooks = JSON.parse(localStorage.getItem("Newbooks"));
-// localStorage.clear();
-localStorage.setItem("books", JSON.stringify(books));
+// the book constructor...
+function book(title, author, pages, read, image) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.image = image;
+  this.read = read;
+}
+// get my library from localstorg ......
+function getLibrary() {
+  let myLibrary = [];
+  if (localStorage.length > 0) {
+    myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+  }
+  console.log(myLibrary);
+  return myLibrary;
+}
+// create card for book in index.html page
+function createDivCard(book) {
+  const div = document.createElement("div");
+  div.classList.add("book", "unread");
+  const divCover = document.createElement("div");
+  divCover.classList.add("cover");
+  const bookImg = document.createElement("img");
+  bookImg.setAttribute("src", `${book.image}`);
+  divCover.appendChild(bookImg.cloneNode(true));
+  const descriptionDiv = document.createElement("div");
+  descriptionDiv.classList.add("description");
+  const p = document.createElement("p");
+  p.classList.add("title");
+  p.textContent = book.title;
+  const br = document.createElement("br");
+  const span = document.createElement("span");
+  span.classList.add("author");
+  span.textContent = `${book.author} ,${book.pages} Pages ,${
+    book.read ? "read" : "not read yet"
+  }`;
+  const delBtn = document.createElement("button");
+  const isReadBtn = document.createElement("button");
+  delBtn.setAttribute("id", book.slot);
+  delBtn.classList.add("fa", "fa-trash", "delete");
+  delBtn.setAttribute("onclick", "delCard(event)");
+  isReadBtn.setAttribute("id", book.title);
+  isReadBtn.textContent = "read";
+  isReadBtn.classList.add("isRead");
+  isReadBtn.setAttribute("onclick", "isRead(event)");
+  p.appendChild(isReadBtn.cloneNode(true));
+  p.appendChild(delBtn.cloneNode(true));
+  p.appendChild(br.cloneNode(true));
+  p.appendChild(span.cloneNode(true));
+  descriptionDiv.appendChild(p.cloneNode(true));
+  div.appendChild(divCover.cloneNode(true));
+  div.appendChild(descriptionDiv.cloneNode(true));
 
-console.log(storedBooks);
-function book(title,author,pages,read,image){
-    this.title=title;
-    this.author=author;
-    this.pages=pages;
-    this.image=image;
-    this.read=read;
- 
-    }
-    
-    const title= document.getElementById("title");
-    const author= document.getElementById("author");
-    const pages= document.getElementById("pages");
-    const image = document.getElementById("image");
-    const saveBtn=document.getElementById("save");
-   
-   
+  return div;
+}
+// Add All my book and refresh html
+function render(library) {
+  let shelf = document.getElementById("list-th");
+  shelf.innerHTML = "";
 
-    const book1=new book('Frankenstein','Marry Shelley',295,false,'image/book1.jpg');
-    const book2=new book('A Little Princess','Frances Hodgson Burnett',295,false,'image/book2.jpg');
-    const book3=new book('Roughing It','Mark Twain',295,false,'image/book3.jpg');
-    addBook(book1);
-    addBook(book2);
-    addBook(book3);
-    render(books);
-    //const saveBtn=document.getElementById("save");
-   
-    saveBtn.addEventListener("click",(e)=>
-    {   e.preventDefault();
-        const newBook=new book(title.value,author.value,pages.value,false,image.value);
-        addBook(newBook);
-        localStorage.setItem("books", JSON.stringify(books));
-        if(e){
-        
-    
-        addform.setAttribute("style", "display:none");
-        
-        render1(books);
-            
-       }
-      
-
-    }
-    
-    )
-   
-    
-    
-    // add book from html page 
-    function addBook(book){
-    books.push(book);  
-      
-    
-     }
-
-     function newB(book){
-        newBooks.push(book);  
-          
-        
-         }
-    
-  
-    // //store book in array
-    
-   
-  
-   
-    // //display book as list or card in html by render arry
-    
-    
-    // //delete book from html page
-    // function deleteBook(bookId){
-    //     books.splice(bookId,1);
-        
-    // }
-    // //deleteBook(0);
-    // //console.table(books);
-    // //toogle read book
-    // function toogleRead(book){
-        
-    //         let isRead =books.find(x=>x==book);
-      
-    //         if(isRead.read == false)
-    //        isRead.read=true;
-    //        else 
-    //        isRead.read=false;
-           
-    //       console.log(isRead);
-            
-    // }
-    
-    // try {
-    //     toogleRead(book1);
-        
-    // } catch (error) {
-    //     console.log(error);
-    // }
-    
-    // console.table(books);
-
-function render(books){
-const divBook =document.querySelector("#list-th");
-for(let i=0;i<=books.length-1;i++){
-const div =document.createElement('div');
-div.classList.add("book","unread");
-div.setAttribute('id',`main${i}`);
-const divCover=document.createElement('div');
-divCover.classList.add("cover");
-const bookImg=document.createElement('img');
-bookImg.setAttribute('src',books[i].image);
-divCover.appendChild(bookImg.cloneNode(true));
-const descriptionDiv=document.createElement('div');
-descriptionDiv.classList.add("description");
-const p =document.createElement('p');
-p.classList.add("title");
-p.textContent=books[i].title ;
-const br =document.createElement("br");
-const span=document.createElement("span");
-span.classList.add("author");
-span.textContent=`${books[i].author} ,${books[i].pages} Pages`;
- p.appendChild(br.cloneNode(true));
-p.appendChild(span.cloneNode(true));
-descriptionDiv.appendChild(p.cloneNode(true));
-div.appendChild(divCover.cloneNode(true));
-div.appendChild(descriptionDiv.cloneNode(true));
-divBook.appendChild(div.cloneNode(true));}}
-
-function render1(newbooks){
-   
-    
-    const divBook =document.querySelector("#list-th");
-    for(let i=newbooks.length-1;i<=newbooks.length-1;i++){
-    const div =document.createElement('div');
-    div.classList.add("book","unread");
-    div.setAttribute('id',`main${i}`);
-    const divCover=document.createElement('div');
-    divCover.classList.add("cover");
-    const bookImg=document.createElement('img');
-    bookImg.setAttribute('src',newbooks[i].image);
-    divCover.appendChild(bookImg.cloneNode(true));
-    const descriptionDiv=document.createElement('div');
-    descriptionDiv.classList.add("description");
-    const p =document.createElement('p');
-    p.classList.add("title");
-    p.textContent=newbooks[i].title ;
-    const br =document.createElement("br");
-    const span=document.createElement("span");
-    span.classList.add("author");
-    span.textContent=`${newbooks[i].author} ,${newbooks[i].pages} Pages`;
-     p.appendChild(br.cloneNode(true));
-    p.appendChild(span.cloneNode(true));
-    descriptionDiv.appendChild(p.cloneNode(true));
-    div.appendChild(divCover.cloneNode(true));
-    div.appendChild(descriptionDiv.cloneNode(true));
-    divBook.appendChild(div.cloneNode(true));
-}}
-function restar(){
-    for(let i=0;i<=books-length-1;i++)
-{let main=document.getElementById(`main${i}`);
-if(main)
-main.remove();}
-
+  if (library.length === 0) {
+    return;
+  }
+  // display book card in parent div
+  library.forEach((book, index) => {
+    book.slot = index;
+    let card = createDivCard(book);
+    shelf.appendChild(card);
+  });
+}
+// add book to array of book my library
+function addBookToLibrary(book, library) {
+  library.push(book);
+}
+// toogle display input form
+function displayForm() {
+  const addform = document.getElementById("form");
+  if (addform.style.display !== "none") {
+    addform.setAttribute("style", "display:none");
+  } else {
+    addform.setAttribute("style", "display:block");
+  }
 }
 
-const addBtn=document.querySelector("#box");
-const addform=document.querySelector("#form");
-
-  function restGrid() {
-
-      if (addform.style.display !== "none") {
-        addform.setAttribute("style", "display:none");
-        
-        
-      } else {
-        addform.setAttribute("style","display:block");
-       
-      }
-    
-  }
-
-  const btnRset = document
+const btnRset = document
   .querySelector("#button")
-  .addEventListener("click", restGrid);
+  .addEventListener("click", displayForm);
 
+//Submit new book in myLibrary
+const saveBtn = document.getElementById("save");
 
-  
+saveBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const title = document.getElementById("title");
+  const a = myLibrary.findIndex((x) => x.title == title.value);
+  if (a > 0) title.value = title.value + ` ${Math.floor(Math.random() * 200)} `;
+  const author = document.getElementById("author");
+  const pages = document.getElementById("pages");
+  const image = document.getElementById("image");
+  const newBook = new book(
+    title.value,
+    author.value,
+    pages.value,
+    (read = false),
+    image.value
+  );
+  addBookToLibrary(newBook, myLibrary);
+  author.value = "";
+  pages.value = "";
+  image.value = "";
+  title.value = "";
+  read = false;
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+  render(myLibrary);
+  displayForm();
+});
+// delete index Book when click on delete button
+function delCard(e) {
+  const a = myLibrary.findIndex((x) => x.slot == e.target.id);
+  console.log(a);
+  myLibrary.splice(a, 1);
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+  render(myLibrary);
+}
 
- //books.splice(0,books.length);
-
-
- 
- localStorage.setItem("books", JSON.stringify(books));
- 
- 
-
+//toogle status of read
+function isRead(e) {
+  const a = myLibrary.findIndex((x) => x.title == e.target.id);
+  console.log(myLibrary[a].read);
+  if (myLibrary[a].read) myLibrary[a].read = false;
+  else myLibrary[a].read = true;
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+  render(myLibrary);
+}
+ // run  My App
+myLibrary = getLibrary();
+render(myLibrary);
