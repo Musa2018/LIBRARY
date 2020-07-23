@@ -1,26 +1,26 @@
-let myLibrary = [
-  {
-    title: "Frankenstein",
-    author: "Marry Shelley",
-    pages: 298,
-    image:"image/book1.jpg",
-    read: false
-  },
-  {
-    title: "A Little Princess",
-    author: "Frances Hodgson Burnett",
-    pages: 200,
-    image:"image/book2.jpg",
-    read: false
-  },
-  {
-    title: "Roughing It",
-    author: "Mark Twain",
-    pages: 190,
-    image:"image/book3.jpg",
-    read: false
-  }
-];
+// let myLibrary = [
+//   {
+//     title: "Frankenstein",
+//     author: "Marry Shelley",
+//     pages: 298,
+//     image:"image/book1.jpg",
+//     read: false
+//   },
+//   {
+//     title: "A Little Princess",
+//     author: "Frances Hodgson Burnett",
+//     pages: 200,
+//     image:"image/book2.jpg",
+//     read: false
+//   },
+//   {
+//     title: "Roughing It",
+//     author: "Mark Twain",
+//     pages: 190,
+//     image:"image/book3.jpg",
+//     read: false
+//   }
+// ];
 
 // the book constructor...
 function book(title, author, pages, read, image) {
@@ -158,5 +158,5 @@ function isRead(e) {
   render(myLibrary);
 }
  // run  My App
-//myLibrary = getLibrary();
+myLibrary = getLibrary();
 render(myLibrary);
